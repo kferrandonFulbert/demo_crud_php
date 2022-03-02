@@ -8,13 +8,16 @@
     </tr>
     <?php
     foreach ($db->query('SELECT * from produits', PDO::FETCH_ASSOC) as $ligne) {
-        echo "  <tr><td>" . $ligne["nom"] . "</td>";
-        ?><td><?= $ligne["producteur"] ?></td>
-        <?php
-        echo "<td>" . $ligne["certificat"] . "</td>".
-                "<td>" . $ligne["description"] . "</td><td>".
-         "<a href='index.php?page=modifier&id=" . $ligne["id"] . "'>Modifier</a> | "
-        . "<a href='#' onclick='conf_suppression(" . $ligne["id"] . ")'>Supprimer</a></td></tr>";
+        ?>
+    <td><?= $ligne["nom"] ?></td>
+    <td><?= $ligne["producteur"] ?></td>
+    <td><?= $ligne["certificat"] ?></td>
+    <td><?= $ligne["description"] ?></td>
+    <td><?= $ligne["description"] ?></td>
+    <td><a href='index.php?page=modifier&id=<?=$ligne["id"]?>'>Modifier</a> |
+    <a href='#' onclick='conf_suppression(<?=$ligne["id"]?>)' >Supprimer</a></td></tr>
+      
+    <?php     
     }
     ?>
 
