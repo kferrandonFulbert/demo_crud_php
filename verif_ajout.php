@@ -39,19 +39,22 @@ try {
 // Check if image file is a actual image or fake image
     if (isset($_FILES["image"])) {
         $check = getimagesize($_FILES["image"]["tmp_name"]);
+        // si le check est = à false on peut décider de ne pas enregistrer en BDD par exemple
         if ($check !== false) {
             echo "Image OK - " . $check["mime"] . ".";
             $uploadOk = true;
+            // de meme si l'image n'a pas été téléchargé sur le serveur
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
+                echo "Le fichier est valide, et a été téléchargé
+           avec succès. Voici plus d'informations :\n";
+            } else {
+                // cf doc de move_uploaded_file
+                echo "Attaque potentielle par téléchargement de fichiers.
+          Voici plus d'informations :\n";
+            }
         } else {
             echo "L'image est incorrect.";
             $uploadOk = false;
-        }
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-            echo "Le fichier est valide, et a été téléchargé
-           avec succès. Voici plus d'informations :\n";
-        } else {
-            echo "Attaque potentielle par téléchargement de fichiers.
-          Voici plus d'informations :\n";
         }
     }
 
