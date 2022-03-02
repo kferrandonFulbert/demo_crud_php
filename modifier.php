@@ -29,7 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("location: index.php?page=lister");
         die;
     } else {
-        $q = $db->prepare("SELECT id, nom, producteur, description, certificat FROM `produits` WHERE id=?");
+        /**
+         * Je récupère mon produit a modifié sous forme d'objet
+         */
+        $q = $db->prepare("SELECT id, nom, producteur, description, certificat, image FROM `produits` WHERE id=?");
         $q->execute([trim(htmlentities($_GET['id']))]);
         $produit = $q->fetch(PDO::FETCH_OBJ);
         // var_dump($produit);die;
@@ -67,7 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?></textarea>
         </div>
     </div>
+    <div class="row">
+        <img src="img/<?= $produit->image;?>" class="img-thumbnail" />
+    </div>
     <div class="col-12">
         <button class="btn btn-primary" type="submit">Enregistrer</button>
     </div>
+    
 </form>
