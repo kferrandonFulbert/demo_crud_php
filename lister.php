@@ -4,6 +4,7 @@
         <th>Producteur</th>
         <th>Certifié le</th>
         <th>Description</th>
+        <th>Image</th>
         <th>Action</th>
     </tr>
     <?php
@@ -13,7 +14,7 @@
     <td><?= $ligne["producteur"] ?></td>
     <td><?= $ligne["certificat"] ?></td>
     <td><?= $ligne["description"] ?></td>
-    <td><?= $ligne["description"] ?></td>
+    <td><img class="img-thumbnail" src='img/<?= $ligne["image"] ?>' alt="<?= $ligne["nom"] ?>" /></td>
     <td><a href='index.php?page=modifier&id=<?=$ligne["id"]?>'>Modifier</a> |
     <a href='#' onclick='conf_suppression(<?=$ligne["id"]?>)' >Supprimer</a></td></tr>
       
