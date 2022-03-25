@@ -1,4 +1,5 @@
 <?php
+// connexion à la BDD.
 try {
     $db = new PDO('mysql:host=localhost;dbname=catalogue',
             "root", "",  array (1002 => 'SET NAMES utf8' ));

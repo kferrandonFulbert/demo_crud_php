@@ -1,4 +1,3 @@
-
 <style>
     body {
         background: #fff;
@@ -55,7 +54,7 @@
                 <h2>Se connecter</h2><br />
                 <form action="verification.php" method="post">
                     <div class="form-data" >
-                        <!-- L'attribut autocomplete="off" permet de ne pas retenir les champs par le navigateur-->
+                        <!-- L'attribut autocomplete="off" permet de ne pas retenir les champs par le navigateur -->
                         <div class="forms-inputs mb-4"> <span>Email or username</span> <input name="mail" autocomplete="off" type="text" >
                             <div class="invalid-feedback">A valid email is required!</div>
                         </div>

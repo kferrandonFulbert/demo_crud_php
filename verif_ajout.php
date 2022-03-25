@@ -39,6 +39,8 @@ try {
 // Check if image file is a actual image or fake image
     if (isset($_FILES["image"])) {
         $check = getimagesize($_FILES["image"]["tmp_name"]);
+        
+     //   var_dump($_FILES["image"]);die;
         // si le check est = à false on peut décider de ne pas enregistrer en BDD par exemple
         if ($check !== false) {
             echo "Image OK - " . $check["mime"] . ".";
