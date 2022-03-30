@@ -1,15 +1,20 @@
 <?php
 
+session_start();
 require_once 'connexion.php';
-;
 
 //On regarde si les variables existent et sont non vide
 if (!isset($_POST["nom"]) || empty($_POST["nom"])) {
-    echo "Le champs produit est obligatoire.";
+    $_SESSION['FLASH']["message"] = "Le nom n'est pas saisi";
+    $_SESSION['FLASH']["type"] = "danger";
+    header("location: index.php?page=ajouter");
     die;
 }
-if (!isset($_POST["producteur"])) {
-    echo "Le champs producteur est obligatoire.";
+if (!isset($_POST["producteur"]) || empty($_POST["producteur"])) {
+    //echo "Le champs producteur est obligatoire.";
+    $_SESSION['FLASH']["message"] = "Le champs producteur est obligatoire.";
+    $_SESSION['FLASH']["type"] = "warning";
+    header("location: index.php?page=ajouter");
     die;
 }
 try {
@@ -35,12 +40,12 @@ try {
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    $ImageNameDB = $_FILES["image"]["name"];
+    $ImageNameDB = ($_FILES["image"]["name"]) ? $_FILES["image"]["name"] : "";
 // Check if image file is a actual image or fake image
-    if (isset($_FILES["image"])) {
+    if (isset($_FILES["image"]) && !empty($ImageNameDB)) {
         $check = getimagesize($_FILES["image"]["tmp_name"]);
-        
-     //   var_dump($_FILES["image"]);die;
+
+        //   var_dump($_FILES["image"]);die;
         // si le check est = à false on peut décider de ne pas enregistrer en BDD par exemple
         if ($check !== false) {
             echo "Image OK - " . $check["mime"] . ".";
@@ -72,14 +77,13 @@ try {
     $sth->bindParam(5, $ImageNameDB, PDO::PARAM_STR, 200);
     $sth->execute();
 //$sth->debugDumpParams(); pour debug en dev
-    /**
-     * @todo: ajouter un message flash pour l'ajout de produit
-     */
-    echo 'Produit ajouté';
+    $_SESSION['FLASH']["message"] = "Produit ajouté ok";
+    $_SESSION['FLASH']["type"] = "success";
     header("location: ./index.php?page=lister");
 } catch (Exception $e) {
-    echo $e->getMessage();
-    die;
+    $_SESSION['FLASH']["message"] = $e->getMessage();
+    $_SESSION['FLASH']["type"] = "danger";
+        header("location: ./index.php?page=ajouter");
 }
 
 /**

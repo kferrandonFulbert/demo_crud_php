@@ -12,23 +12,23 @@ if (isset($_SESSION['role'])) {
         <div class="row">
             &nbsp;
         </div>
-        <form class="row g-3" method="post" action="verif_ajout.php" enctype="multipart/form-data">
+        <form id="formAjout" name="formAjout" class="row g-3" method="post" action="verif_ajout.php" enctype="multipart/form-data">
             <div class="mb-3 row">
                 <label for="produit" class="col-sm-2 col-form-label">Produit</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control"  id="nom"  name="nom">
+                    <input type="text" class="form-control"  id="nom"  name="nom" >
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="producteur" class="col-sm-2 col-form-label">Producteur</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="producteur"  name="producteur">
+                    <input type="text" class="form-control" id="producteur"  name="producteur" >
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="certificat" class="col-sm-2 col-form-label">Certifié le</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" id="certificat"  name="certificat">
+                    <input type="date" class="form-control" id="certificat"  name="certificat" required="required">
                 </div>
             </div>
             <div class="mb-3 row">
@@ -44,7 +44,8 @@ if (isset($_SESSION['role'])) {
                 </div>
             </div>
             <div class="col-12">
-                <button class="btn btn-primary" type="submit">Enregistrer</button>
+             <!--   <a class="btn btn-primary" href="#" onclick="verifAjout();">Enregistrer</a>-->
+                 <button class="btn btn-primary" type="submit">Enregistrer</button>
             </div>
         </form>
         <?php
@@ -55,3 +56,11 @@ if (isset($_SESSION['role'])) {
     header("location: index.php?page=login");
 }
 ?>
+
+<script>
+    function verifAjout(){
+        var form = document.forms["formAjout"]; 
+        
+        //console.log(form.nom);
+    }
+</script>

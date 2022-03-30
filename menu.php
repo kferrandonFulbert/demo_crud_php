@@ -1,7 +1,3 @@
-<?php 
-session_start();
-
-?>
 <ul class="nav">
   <li class="nav-item">
     <a class="nav-link <?= ($page=="accueil")?"active":""; ?>" aria-current="page"
