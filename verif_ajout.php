@@ -76,14 +76,15 @@ try {
     $sth->bindParam(4, $certificat, PDO::PARAM_STR, 10);
     $sth->bindParam(5, $ImageNameDB, PDO::PARAM_STR, 200);
     $sth->execute();
-//$sth->debugDumpParams(); pour debug en dev
+//$sth->debugDumpParams(); pour debug en dev vos requetes
+    
     $_SESSION['FLASH']["message"] = "Produit ajouté ok";
     $_SESSION['FLASH']["type"] = "success";
     header("location: ./index.php?page=lister");
 } catch (Exception $e) {
     $_SESSION['FLASH']["message"] = $e->getMessage();
     $_SESSION['FLASH']["type"] = "danger";
-        header("location: ./index.php?page=ajouter");
+    header("location: ./index.php?page=ajouter");
 }
 
 /**

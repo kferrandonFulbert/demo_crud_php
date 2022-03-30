@@ -1,4 +1,9 @@
 <?php
+/**
+ * utilisation des messages flash.
+ *  $_SESSION['FLASH']["message"] = "Message à aggicher";
+    $_SESSION['FLASH']["type"] = "success|danger|warning|..."; cf doc bootstrap
+ */
 if (isset($_SESSION["FLASH"])) {
     ?>   
     <div class="row">
