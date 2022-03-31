@@ -18,19 +18,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sth = $db->prepare($sql);
         $sth->execute();
         $sth->debugDumpParams();
+        $_SESSION['FLASH']["message"] = "Produit Modifié";
+        $_SESSION['FLASH']["type"] = "success";
         header("location: index.php?page=lister");
         die;
     } catch (Exception $e) {
-        echo $e->getMessage();
+        //  echo $e->getMessage();
+        $_SESSION['FLASH']["message"] = "Erreur lors de la modification: " . $e->getMessage();       
+        $_SESSION['FLASH']["type"] = "danger";
+         header("location: index.php?page=modifier");
         die;
     }
 } else {
     if (!isset($_GET['id']) || empty($_GET['id'])) {
+        $_SESSION['FLASH']["message"] = "Vous devez choisir un produit valide pour le modifier";       
+        $_SESSION['FLASH']["type"] = "danger";
         header("location: index.php?page=lister");
         die;
     } else {
         /**
          * Je récupère mon produit a modifié sous forme d'objet
+         * pour remplir mon formulaire.
          */
         $q = $db->prepare("SELECT id, nom, producteur, description, certificat, image FROM `produits` WHERE id=?");
         $q->execute([trim(htmlentities($_GET['id']))]);
@@ -65,16 +73,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="mb-3 row">
         <label for="description" class="col-sm-2 col-form-label">Description</label>
         <div class="col-sm-10">
-            <textarea  class="form-control" id="Description" rows="3" name="description"><?= $produit->description;
-;
-?></textarea>
+            <textarea  class="form-control" id="Description" rows="3" name="description"><?=
+                $produit->description;
+                ;
+                ?></textarea>
         </div>
     </div>
     <div class="row">
-        <img src="img/<?= $produit->image;?>" class="img-thumbnail" />
+        <img src="img/<?= $produit->image; ?>" class="img-thumbnail" />
     </div>
     <div class="col-12">
         <button class="btn btn-primary" type="submit">Enregistrer</button>
     </div>
-    
+
 </form>

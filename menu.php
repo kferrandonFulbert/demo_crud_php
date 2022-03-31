@@ -1,5 +1,7 @@
 <ul class="nav">
   <li class="nav-item">
+      <!-- si je suis sur la page qui correspond à mon lien,
+      j'ajoute la classe css active pour que l'utilisateur comprenne ou il se trouve -->
     <a class="nav-link <?= ($page=="accueil")?"active":""; ?>" aria-current="page"
        href="index.php?page=accueil">Accueil</a>
   </li>
