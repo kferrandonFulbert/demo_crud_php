@@ -48,6 +48,7 @@ for ($i = 0; $i < $nbPage; $i++) {
 }
 ?>
 
+<!-- script de confirmation de suppression -->
 <script>
     function conf_suppression(id){
         var result = confirm("Êtes vous sûre de vouloir supprimer ce produit?");

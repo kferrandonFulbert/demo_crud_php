@@ -11,7 +11,7 @@ require_once 'connexion.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // modification non sécurisé car je ne fait aucune verif sur les champs
-        // pour sécurisé voir le fichier verif_ajout.php
+        // pour sécurisé il faut lier un paramètre à un nom de variable spécifié voir le fichier verif_ajout.php
         $sql = "update produits set nom='" . $_POST['nom'] . "', producteur='"
                 . $_POST['producteur'] . "', description='" . $_POST['description'] . "', "
                 . "certificat='" . $_POST['certificat'] . "' where id='" . $_POST['id'] . "'";
@@ -23,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("location: index.php?page=lister");
         die;
     } catch (Exception $e) {
-        //  echo $e->getMessage();
         $_SESSION['FLASH']["message"] = "Erreur lors de la modification: " . $e->getMessage();       
         $_SESSION['FLASH']["type"] = "danger";
          header("location: index.php?page=modifier");

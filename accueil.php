@@ -13,27 +13,26 @@ if (isset($_POST['nom']) && !empty($_POST['nom'])) {
 }
 
 ?>
-
+<!-- formulaire de filtre -->
 <form id='filtre' class="form-inline" name='filtre' action="index.php?page=accueil" method="post">
     <label for='nom'>Nom du produit ou producteur
         <input type="text" name='nom' id='nom' />
         <button type="submit" class="btn btn-primary mb-2">Enregistrer</button>
     </label>
 </form>
-
 <table id="customers">
+    <thead>
     <tr>
         <th>Produit</th>
         <th>Producteur</th>
         <th>Certifié le</th>
         <th>Description</th>
         <th>Image</th>
-    </tr>
+    </tr></thead>
+    <tbody> 
     <?php
     $sql2 = 'SELECT * from produits ';
-    // (int) permet de caster directement (transformer en int)
-    //si on essaye de faire une injection
-    // on aura une exception de levé.
+    // Affichage de tous les produits ou affichage des produits filtrés en fonction de la recherche
     if (isset($nom)) {
         $sql2 .= ' where nom like :nom or producteur like :nom ';
         $sth2 = $db->prepare($sql2);
@@ -43,19 +42,18 @@ if (isset($_POST['nom']) && !empty($_POST['nom'])) {
         $sth2 = $db->prepare($sql2);
     }
     $sth2->execute();
-    foreach ($sth2->fetchall(PDO::FETCH_ASSOC) as $ligne) {
+    // FETCH_OBJ renvoie un objet avec les propriétés public (donc accessible)
+    foreach ($sth2->fetchAll(PDO::FETCH_OBJ) as $ligne) {
         ?>
     <tr>
-        <td><?= $ligne["nom"] ?></td>
-        <td><?= $ligne["producteur"] ?></td>
-        <td><?= $ligne["certificat"] ?></td>
-        <td><?= $ligne["description"] ?></td>
-        <td><img class="img-thumbnail" src='img/<?= $ligne["image"] ?>' alt="<?= $ligne["nom"] ?>" /></td>
+        <td><?= $ligne->nom; ?></td>
+        <td><?= $ligne->producteur; ?></td>
+        <td><?= $ligne->certificat; ?></td>
+        <td><?= $ligne->description; ?></td>
+        <td><img class="img-thumbnail" src='img/<?= $ligne->image ?>' alt="<?= $ligne->nom; ?>" /></td>
     </tr>
-
     <?php
 }
-?>
-
+?></tbody>
 </table>
 
